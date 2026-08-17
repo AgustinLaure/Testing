@@ -2,18 +2,31 @@ using UnityEngine;
 
 public class Events
 {
-    public class OnShoot : IEvent
+    public class OnPlayerJump : IEvent
     {
-        private float damage = 0;
+        public float jumpImpulse;
 
         public void Set(params object[] data)
         {
-            damage = (float)data[0];
+            jumpImpulse = (float)data[0];
         }
 
         public void Reset()
         {
-            damage = 0;
+            jumpImpulse = 0f;
+        }
+    }
+
+    public class OnPlayerMove : IEvent
+    {
+        public void Set(params object[] data)
+        {
+
+        }
+
+        public void Reset()
+        {
+            
         }
     }
 }

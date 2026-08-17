@@ -81,6 +81,21 @@ public class CompositePool
         }
     }
 
+    public void ReturnItemFromPool<T>(T item) where T : IReseteable, new()
+    {
+        if (compositePool.TryGetValue(typeof(T), out Pool pool))
+        {
+            pool.ReturnItem(item);
+        }
+        else
+        {
+            Pool newPool = new Pool();
+            compositePool.TryAdd(typeof(T), newPool);
+
+            newPool.ReturnItem(item);
+        }
+    }
+
     public void Clear()
     {
         compositePool.Clear();

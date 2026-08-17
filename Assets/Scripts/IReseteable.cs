@@ -1,5 +1,5 @@
 
 public interface IReseteable
 {
-    void Reset();
+    public void Reset();
 }

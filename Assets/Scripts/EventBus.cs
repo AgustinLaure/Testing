@@ -13,10 +13,13 @@ public class EventBus
     }
 
     private Dictionary<Type, List<Delegate>> statesToInstance;
+    private CompositePool compositePool;
 
     public EventBus()
     {
         statesToInstance = new Dictionary<Type, List<Delegate>>();
+
+        compositePool = ServiceLocator.Instance.GetService<CompositePool>();
     }
 
     public void Subscribe<T>(Delegate function) where T : IEvent
@@ -66,12 +69,16 @@ public class EventBus
             }
             else
             {
-                T newEvent = ServiceLocator.Instance.GetService<CompositePool>().GetItemFromPool<T>();
+                T newEvent = compositePool.GetItemFromPool<T>();
+
+                newEvent.Set(data);
 
                 foreach (Delegate delegatesIter in delegates)
                 {
                     delegatesIter?.DynamicInvoke(newEvent);
                 }
+
+                compositePool.ReturnItemFromPool(newEvent);
             }
         }
     }

@@ -27,5 +27,6 @@ public static class BootStrapper
         // ServiceLocator.Instance.AddService(new AudioManager(audioMixer, clickSound, gameplayMusic));
 
         ServiceLocator.Instance.AddService(new CompositePool());
+        ServiceLocator.Instance.AddService(new EventBus());
     }
 }

@@ -5,7 +5,7 @@ public class Pool
 {
     public Pool()
     {
-
+        stack = new Stack<IReseteable>();
     }
 
     private Stack<IReseteable> stack;
